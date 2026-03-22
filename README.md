@@ -148,6 +148,12 @@ mp-search/
 
 ---
 
+## Community
+
+Shared and discussed on [LINUX DO](https://linux.do/).
+
+---
+
 ## License
 
 This project is licensed under [GPL-3.0](LICENSE) for open-source use.

@@ -148,6 +148,12 @@ mp-search/
 
 ---
 
+## 社区
+
+本项目在 [LINUX DO](https://linux.do/) 社区分享与讨论。
+
+---
+
 ## 许可证
 
 本项目以 [GPL-3.0](LICENSE) 协议开源。
