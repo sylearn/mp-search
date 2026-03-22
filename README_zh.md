@@ -1,3 +1,4 @@
+![Logo](assets/logo.png)
 # MP Search
 
 [![PyPI version](https://img.shields.io/pypi/v/mp-search.svg)](https://pypi.org/project/mp-search/)
