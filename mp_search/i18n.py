@@ -10,13 +10,13 @@ import mp_search.config as _cfg
 
 _TEXTS: dict[str, dict[str, str | list | tuple]] = {
     # ── Search modes ──
-    "mode_formula":      {"zh": "化学式  (如 RuCl2)",    "en": "Formula  (e.g. RuCl2)"},
-    "mode_elements":     {"zh": "元素    (如 Ru,Cl)",    "en": "Elements (e.g. Ru,Cl)"},
-    "mode_chemsys":      {"zh": "化学体系 (如 Ru-Cl)",   "en": "Chemsys  (e.g. Ru-Cl)"},
+    "mode_formula":      {"zh": "化学式  (如 TiO2)",     "en": "Formula  (e.g. TiO2)"},
+    "mode_elements":     {"zh": "元素    (如 Fe,O)",     "en": "Elements (e.g. Fe,O)"},
+    "mode_chemsys":      {"zh": "化学体系 (如 Li-Fe-O)", "en": "Chemsys  (e.g. Li-Fe-O)"},
     # ── Placeholders ──
-    "ph_formula":        {"zh": "输入化学式，如 RuCl2",      "en": "Enter formula, e.g. RuCl2"},
-    "ph_elements":       {"zh": "输入元素，逗号分隔，如 Ru,Cl", "en": "Enter elements, e.g. Ru,Cl"},
-    "ph_chemsys":        {"zh": "输入化学体系，如 Ru-Cl",     "en": "Enter chemsys, e.g. Ru-Cl"},
+    "ph_formula":        {"zh": "输入化学式，如 TiO2",       "en": "Enter formula, e.g. TiO2"},
+    "ph_elements":       {"zh": "输入元素，逗号分隔，如 Fe,O",  "en": "Enter elements, e.g. Fe,O"},
+    "ph_chemsys":        {"zh": "输入化学体系，如 Li-Fe-O",   "en": "Enter chemsys, e.g. Li-Fe-O"},
     "ph_min":            {"zh": "最小", "en": "Min"},
     "ph_max":            {"zh": "最大", "en": "Max"},
     # ── Buttons / labels ──
