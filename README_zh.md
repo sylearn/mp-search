@@ -3,7 +3,7 @@
 
 [![PyPI version](https://img.shields.io/pypi/v/mp-search.svg)](https://pypi.org/project/mp-search/)
 [![Python 3.10+](https://img.shields.io/pypi/pyversions/mp-search.svg)](https://pypi.org/project/mp-search/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 
 > [English](README.md)
 
@@ -150,4 +150,9 @@ mp-search/
 
 ## 许可证
 
-[MIT](LICENSE)
+本项目以 [GPL-3.0](LICENSE) 协议开源。
+
+**商业授权**：如需商业使用或闭源集成，请联系作者获取商业许可证。
+
+- 邮箱：sylearn@foxmail.com
+- GitHub：[@sylearn](https://github.com/sylearn)
