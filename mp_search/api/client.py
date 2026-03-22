@@ -4,7 +4,6 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
 import requests
-from pymatgen.core.structure import Structure
 
 MP_API_BASE = "https://api.materialsproject.org"
 
@@ -138,6 +137,7 @@ class MPClient:
         struct_dict = item.get("structure")
         if struct_dict and isinstance(struct_dict, dict):
             try:
+                from pymatgen.core.structure import Structure
                 struct = Structure.from_dict(struct_dict)
             except Exception:
                 pass

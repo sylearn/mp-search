@@ -1,12 +1,12 @@
 """Internationalization for mp-search TUI.
 
-Set language via MP_SEARCH_LANG environment variable or .env file.
-Supported: "zh" (中文, default), "en" (English).
+Set language via MP_SEARCH_LANG environment variable or ~/.config/mp-search/config.env.
+Supported: "zh" (中文), "en" (English, default).
 """
 
 from __future__ import annotations
 
-from mp_search.config import LANG as _LANG
+import mp_search.config as _cfg
 
 _TEXTS: dict[str, dict[str, str | list | tuple]] = {
     # ── Search modes ──
@@ -46,8 +46,8 @@ _TEXTS: dict[str, dict[str, str | list | tuple]] = {
     # ── Status messages ──
     "status_ready":      {"zh": "就绪 | API 已连接，输入搜索内容后按 Enter",
                           "en": "Ready | API connected, enter query and press Enter"},
-    "status_no_key":     {"zh": "⚠ MP_API_KEY 未设置或 API 连接失败！请在 .env 中配置后重启",
-                          "en": "⚠ MP_API_KEY not set or API failed! Configure in .env and restart"},
+    "status_no_key":     {"zh": "⚠ MP_API_KEY 未设置 — 请通过设置向导配置",
+                          "en": "⚠ MP_API_KEY not set — configure via setup wizard"},
     "status_searching":  {"zh": "正在搜索 {} ...", "en": "Searching {} ..."},
     "status_found":      {"zh": "找到 {} 个材料 | Enter 查看详情，e 导出",
                           "en": "Found {} materials | Enter for detail, e to export"},
@@ -55,10 +55,10 @@ _TEXTS: dict[str, dict[str, str | list | tuple]] = {
     "status_hint":       {"zh": "就绪 | 按 / 聚焦搜索框，f 切换筛选面板",
                           "en": "Ready | Press / to search, f to toggle filters"},
     # ── Notifications ──
-    "notify_no_key":     {"zh": "请在 .env 中设置 MP_API_KEY 后重启",
-                          "en": "Set MP_API_KEY in .env and restart"},
-    "notify_no_client":  {"zh": "API 未连接，请在 .env 中设置 MP_API_KEY 后重启",
-                          "en": "API not connected, set MP_API_KEY in .env and restart"},
+    "notify_no_key":     {"zh": "API Key 未配置，请重启 mp-search 重新设置",
+                          "en": "API Key not configured, restart mp-search to set up"},
+    "notify_no_client":  {"zh": "API 未连接，请重启 mp-search 重新配置",
+                          "en": "API not connected, restart mp-search to reconfigure"},
     "notify_empty":      {"zh": "请输入搜索内容", "en": "Please enter a search query"},
     "notify_select":     {"zh": "请先搜索并选中材料", "en": "Search and select a material first"},
     "notify_select_one": {"zh": "请选中一个材料", "en": "Select a material"},
@@ -95,7 +95,7 @@ def t(key: str, *args: object) -> str:
     entry = _TEXTS.get(key)
     if not entry:
         return key
-    text = entry.get(_LANG, entry.get("en", key))
+    text = entry.get(_cfg.LANG, entry.get("en", key))
     if args:
         return str(text).format(*args)
     return str(text)

@@ -22,9 +22,8 @@ from textual.widgets import (
     Switch,
 )
 
-from mp_search.api.client import MPClient, MaterialSummary, SearchFilters
+from mp_search.api.client import MaterialSummary, SearchFilters
 from mp_search.i18n import t
-from mp_search.tui.detail import DetailScreen
 
 
 def _search_modes() -> list[tuple[str, str]]:
@@ -82,9 +81,9 @@ class MPSearchApp(App):
         Binding("e", "export_selected", "", show=True),
     ]
 
-    def __init__(self, client: MPClient | None = None) -> None:
+    def __init__(self) -> None:
         super().__init__()
-        self.client = client
+        self.client = None
         self.results: list[MaterialSummary] = []
         self._results_map: dict[str, MaterialSummary] = {}
         self.BINDINGS = [
@@ -151,13 +150,42 @@ class MPSearchApp(App):
             t("col_ehull"), t("col_spacegroup"), t("col_crystal"), t("col_stable"),
         )
         table.cursor_type = "row"
+        self._try_connect()
 
-        if not self.client:
+    def _try_connect(self) -> None:
+        from mp_search.config import MP_API_KEY
+
+        if not MP_API_KEY:
+            self._status(t("status_no_key"))
+            from mp_search.tui.setup import SetupScreen
+            self.push_screen(SetupScreen(), callback=self._on_setup_done)
+            return
+
+        self._connect_api(MP_API_KEY)
+
+    def _on_setup_done(self, result: dict | None) -> None:
+        if result is None:
             self._status(t("status_no_key"))
             self.notify(t("notify_no_key"), severity="error", timeout=10)
             return
 
-        self._status(t("status_ready"))
+        from mp_search import config
+        config.reload_config()
+
+        self._connect_api(result["api_key"])
+
+    @work(thread=True, exclusive=True)
+    def _connect_api(self, api_key: str) -> None:
+        try:
+            from mp_search.api.client import MPClient
+            client = MPClient(api_key)
+            client.connect()
+            self.client = client
+            self.call_from_thread(self._status, t("status_ready"))
+        except Exception as exc:
+            self.call_from_thread(
+                self._status, t("status_error", str(exc))
+            )
 
     # ── search events ────────────────────────────────────────
 
@@ -249,6 +277,7 @@ class MPSearchApp(App):
         mid = event.row_key.value
         mat = self._results_map.get(str(mid))
         if mat:
+            from mp_search.tui.detail import DetailScreen
             self.push_screen(DetailScreen(mat))
 
     def action_export_selected(self) -> None:
@@ -261,6 +290,7 @@ class MPSearchApp(App):
             mid = str(row[0])
             mat = self._results_map.get(mid)
             if mat:
+                from mp_search.tui.detail import DetailScreen
                 self.push_screen(DetailScreen(mat))
         except Exception:
             self.notify(t("notify_select_one"), severity="warning")

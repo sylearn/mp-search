@@ -7,8 +7,8 @@ from textual.containers import Horizontal, VerticalScroll
 from textual.screen import ModalScreen
 from textual.widgets import Button, Static
 
+import mp_search.config as _cfg
 from mp_search.api.client import MaterialSummary
-from mp_search.config import DEFAULT_EXPORT_DIR
 from mp_search.export.writer import export_all, export_cif, export_json, export_poscar
 from mp_search.i18n import t
 
@@ -105,15 +105,16 @@ class DetailScreen(ModalScreen):
         self.dismiss()
 
     def _do_export(self, fmt: str) -> None:
+        export_dir = _cfg.DEFAULT_EXPORT_DIR
         try:
             if fmt == "poscar":
-                path = export_poscar(self.material, DEFAULT_EXPORT_DIR)
+                path = export_poscar(self.material, export_dir)
             elif fmt == "cif":
-                path = export_cif(self.material, DEFAULT_EXPORT_DIR)
+                path = export_cif(self.material, export_dir)
             elif fmt == "json":
-                path = export_json(self.material, DEFAULT_EXPORT_DIR)
+                path = export_json(self.material, export_dir)
             else:
-                paths = export_all(self.material, DEFAULT_EXPORT_DIR)
+                paths = export_all(self.material, export_dir)
                 path = next(iter(paths.values()))
                 path = str(path).rsplit("/", 1)[0]
 

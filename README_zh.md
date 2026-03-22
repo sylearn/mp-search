@@ -24,6 +24,7 @@
 - **属性筛选** — 带隙、凸包能、原子数、晶系、稳定性
 - **材料详情** — 完整属性、晶格参数、对称性信息
 - **导出** — 一键导出 POSCAR / CIF / JSON
+- **首次运行向导** — 交互式配置，无需手动编辑文件
 - **国际化** — 中文和英文界面切换
 
 ---
@@ -58,17 +59,40 @@ pip install -e .
 
 ## 配置
 
-从 [Materials Project](https://next-gen.materialsproject.org/api) 获取 API Key，然后在运行 `mp-search` 的目录下创建 `.env` 文件：
+### 首次启动（推荐）
+
+直接运行 `mp-search`。如果没有找到配置，会自动弹出**交互式设置向导**，引导你配置：
+
+- **API Key** — 在 [Materials Project](https://next-gen.materialsproject.org/api) 获取
+- **导出目录** — POSCAR / CIF / JSON 文件保存位置
+- **语言** — 英文或中文
+
+配置保存在 `~/.config/mp-search/config.env`。
+
+### 手动配置
+
+也可以直接设置环境变量或手动创建配置文件：
 
 ```bash
-cp .env.example .env
+# 方式 1：Shell 环境变量
+export MP_API_KEY="your_key_here"
+
+# 方式 2：配置文件
+mkdir -p ~/.config/mp-search
+cat > ~/.config/mp-search/config.env << 'EOF'
+MP_API_KEY="your_key_here"
+MP_EXPORT_DIR="~/mp-search-exports"
+MP_SEARCH_LANG="zh"
+EOF
 ```
 
 | 变量 | 说明 | 默认值 |
 |---|---|---|
 | `MP_API_KEY` | **必填。** Materials Project API 密钥 | — |
-| `MP_EXPORT_DIR` | 导出目录路径 | `./result/mp_search` |
-| `MP_SEARCH_LANG` | 界面语言：`zh` 或 `en` | `zh` |
+| `MP_EXPORT_DIR` | 导出目录路径 | `~/mp-search-exports` |
+| `MP_SEARCH_LANG` | 界面语言：`zh` 或 `en` | `en` |
+
+配置查找顺序：环境变量 → `~/.config/mp-search/config.env` → 当前目录 `.env`。
 
 ---
 
@@ -99,13 +123,14 @@ mp-search/
 ├── .env.example
 └── mp_search/
     ├── __main__.py      # CLI 入口
-    ├── config.py         # 配置
+    ├── config.py         # 多路径配置加载器
     ├── i18n.py           # 国际化
     ├── api/client.py     # REST API 客户端
     ├── export/writer.py  # POSCAR / CIF / JSON 导出
     └── tui/
         ├── app.py        # TUI 主界面
-        └── detail.py     # 详情弹窗
+        ├── detail.py     # 详情弹窗
+        └── setup.py      # 首次运行设置向导
 ```
 
 ---
