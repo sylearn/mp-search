@@ -96,6 +96,14 @@ EOF
 
 Config lookup order: environment variables → `~/.config/mp-search/config.env` → `.env` in current directory.
 
+### Reconfigure
+
+```bash
+mp-search config          # Re-open setup wizard
+mp-search config --show   # Show current config
+mp-search config --reset  # Delete config file
+```
+
 ---
 
 ## Usage

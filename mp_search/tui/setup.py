@@ -11,7 +11,7 @@ from textual.containers import Vertical
 from textual.screen import ModalScreen
 from textual.widgets import Button, Input, Label, Select, Static
 
-from mp_search.config import CONFIG_FILE, DEFAULT_EXPORT_DIR, save_config
+import mp_search.config as _cfg
 
 _LANG_OPTIONS = [
     ("English", "en"),
@@ -53,6 +53,7 @@ class SetupScreen(ModalScreen[dict | None]):
                 classes="setup-hint",
             )
             yield Input(
+                value=_cfg.MP_API_KEY,
                 placeholder="Paste your Materials Project API key",
                 id="input-api-key",
                 password=True,
@@ -65,8 +66,8 @@ class SetupScreen(ModalScreen[dict | None]):
                 classes="setup-hint",
             )
             yield Input(
-                value=DEFAULT_EXPORT_DIR,
-                placeholder=DEFAULT_EXPORT_DIR,
+                value=_cfg.DEFAULT_EXPORT_DIR,
+                placeholder=_cfg.DEFAULT_EXPORT_DIR,
                 id="input-export-dir",
                 classes="setup-input",
             )
@@ -74,13 +75,13 @@ class SetupScreen(ModalScreen[dict | None]):
             yield Label("Language", classes="setup-label")
             yield Select(
                 _LANG_OPTIONS,
-                value="en",
+                value=_cfg.LANG,
                 id="select-lang",
                 allow_blank=False,
             )
 
             yield Static(
-                f"Config will be saved to: {CONFIG_FILE}",
+                f"Config will be saved to: {_cfg.CONFIG_FILE}",
                 classes="setup-hint",
             )
 
@@ -100,10 +101,10 @@ class SetupScreen(ModalScreen[dict | None]):
 
         export_dir = (
             self.query_one("#input-export-dir", Input).value.strip()
-            or DEFAULT_EXPORT_DIR
+            or _cfg.DEFAULT_EXPORT_DIR
         )
         lang = str(self.query_one("#select-lang", Select).value)
 
-        path = save_config(api_key, export_dir, lang)
+        path = _cfg.save_config(api_key, export_dir, lang)
         self.notify(f"Saved to {path}", severity="information", timeout=3)
         self.dismiss({"api_key": api_key, "export_dir": export_dir, "lang": lang})

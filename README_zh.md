@@ -96,6 +96,14 @@ EOF
 
 配置查找顺序：环境变量 → `~/.config/mp-search/config.env` → 当前目录 `.env`。
 
+### 重新配置
+
+```bash
+mp-search config          # 重新打开设置向导
+mp-search config --show   # 查看当前配置
+mp-search config --reset  # 删除配置文件
+```
+
 ---
 
 ## 使用

@@ -81,9 +81,10 @@ class MPSearchApp(App):
         Binding("e", "export_selected", "", show=True),
     ]
 
-    def __init__(self) -> None:
+    def __init__(self, force_setup: bool = False) -> None:
         super().__init__()
         self.client = None
+        self._force_setup = force_setup
         self.results: list[MaterialSummary] = []
         self._results_map: dict[str, MaterialSummary] = {}
         self.BINDINGS = [
@@ -155,7 +156,7 @@ class MPSearchApp(App):
     def _try_connect(self) -> None:
         from mp_search.config import MP_API_KEY
 
-        if not MP_API_KEY:
+        if not MP_API_KEY or self._force_setup:
             self._status(t("status_no_key"))
             from mp_search.tui.setup import SetupScreen
             self.push_screen(SetupScreen(), callback=self._on_setup_done)
