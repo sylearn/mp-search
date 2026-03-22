@@ -20,6 +20,16 @@ A terminal-based UI tool for searching materials from the [Materials Project](ht
 
 ---
 
+## Preview
+
+![Main Interface](assets/01_main.png)
+
+![Search Results](assets/02_results.png)
+
+![Filters Panel](assets/03_filters.png)
+
+---
+
 ## Quick Start
 
 ### 1. Get an API Key

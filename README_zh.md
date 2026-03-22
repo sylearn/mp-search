@@ -20,6 +20,16 @@
 
 ---
 
+## 预览
+
+![主界面](assets/01_main.png)
+
+![搜索结果](assets/02_results.png)
+
+![筛选面板](assets/03_filters.png)
+
+---
+
 ## 快速开始
 
 ### 1. 获取 API Key
