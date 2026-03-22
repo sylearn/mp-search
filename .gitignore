@@ -19,3 +19,6 @@ Thumbs.db
 
 result/
 article.md
+dist/
+build/
+*.egg-info/
