@@ -1,24 +1,12 @@
 # MP Search
 
+[![PyPI version](https://img.shields.io/pypi/v/mp-search.svg)](https://pypi.org/project/mp-search/)
+[![Python 3.10+](https://img.shields.io/pypi/pyversions/mp-search.svg)](https://pypi.org/project/mp-search/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org)
 
 > [English](README.md)
 
 基于终端 UI 的 [Materials Project](https://materialsproject.org) 材料搜索工具，使用 [Textual](https://textual.textualize.io/) 构建。
-
----
-
-## 功能
-
-- **三种搜索模式** — 按化学式、元素、化学体系搜索
-- **属性筛选** — 带隙、凸包能、原子数、晶系、稳定性
-- **材料详情** — 完整属性、晶格参数、对称性信息
-- **导出** — 一键导出 POSCAR / CIF / JSON
-- **国际化** — 中文和英文界面（通过 `.env` 配置切换）
-- **原生 REST API** — 直接调用 Materials Project REST API，避免 `mp-api` 库的兼容性问题
-
----
 
 ## 预览
 
@@ -30,45 +18,51 @@
 
 ---
 
-## 快速开始
+## 功能
 
-### 1. 获取 API Key
+- **三种搜索模式** — 按化学式、元素、化学体系搜索
+- **属性筛选** — 带隙、凸包能、原子数、晶系、稳定性
+- **材料详情** — 完整属性、晶格参数、对称性信息
+- **导出** — 一键导出 POSCAR / CIF / JSON
+- **国际化** — 中文和英文界面切换
 
-前往 [Materials Project](https://next-gen.materialsproject.org/api) 注册并获取 API Key。
+---
 
-### 2. 安装
+## 安装
+
+### 从 PyPI 安装（推荐）
+
+```bash
+pip install mp-search
+```
+
+或使用 [uv](https://docs.astral.sh/uv/)：
+
+```bash
+# 安装为全局工具
+uv tool install mp-search
+
+# 或临时运行（无需安装）
+uvx mp-search
+```
+
+### 从源码安装
 
 ```bash
 git clone https://github.com/sylearn/mp-search.git
 cd mp-search
-
-python -m venv .venv
-source .venv/bin/activate
-
 pip install -e .
-```
-
-### 3. 配置
-
-```bash
-cp .env.example .env
-```
-
-编辑 `.env`，填入你的 API Key：
-
-```env
-MP_API_KEY="你的API密钥"
-```
-
-### 4. 运行
-
-```bash
-mp-search
 ```
 
 ---
 
-## 配置项
+## 配置
+
+从 [Materials Project](https://next-gen.materialsproject.org/api) 获取 API Key，然后在运行 `mp-search` 的目录下创建 `.env` 文件：
+
+```bash
+cp .env.example .env
+```
 
 | 变量 | 说明 | 默认值 |
 |---|---|---|
@@ -78,7 +72,13 @@ mp-search
 
 ---
 
-## 快捷键
+## 使用
+
+```bash
+mp-search
+```
+
+### 快捷键
 
 | 按键 | 功能 |
 |---|---|
@@ -95,33 +95,17 @@ mp-search
 
 ```
 mp-search/
-├── pyproject.toml          # 包配置
-├── .env.example            # 环境变量模板
-├── LICENSE
-├── README.md               # 英文文档
-├── README_zh.md            # 中文文档
-└── mp_search/              # Python 包
-    ├── __main__.py          # CLI 入口
-    ├── config.py            # 配置加载
-    ├── i18n.py              # 国际化
-    ├── api/
-    │   └── client.py        # Materials Project REST API 客户端
-    ├── export/
-    │   └── writer.py        # POSCAR / CIF / JSON 导出
+├── pyproject.toml
+├── .env.example
+└── mp_search/
+    ├── __main__.py      # CLI 入口
+    ├── config.py         # 配置
+    ├── i18n.py           # 国际化
+    ├── api/client.py     # REST API 客户端
+    ├── export/writer.py  # POSCAR / CIF / JSON 导出
     └── tui/
-        ├── app.py           # TUI 主界面
-        └── detail.py        # 材料详情弹窗
-```
-
----
-
-## 开发
-
-```bash
-pip install -e .
-
-# 修改代码后无需重新安装，直接运行
-mp-search
+        ├── app.py        # TUI 主界面
+        └── detail.py     # 详情弹窗
 ```
 
 ---

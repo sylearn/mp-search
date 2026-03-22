@@ -1,24 +1,12 @@
 # MP Search
 
+[![PyPI version](https://img.shields.io/pypi/v/mp-search.svg)](https://pypi.org/project/mp-search/)
+[![Python 3.10+](https://img.shields.io/pypi/pyversions/mp-search.svg)](https://pypi.org/project/mp-search/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org)
 
-> [🇨🇳中文文档](README_zh.md)
+> [中文文档](README_zh.md)
 
-A terminal-based UI tool for searching materials from the [Materials Project](https://materialsproject.org) database. Built with [Textual](https://textual.textualize.io/).
-
----
-
-## Features
-
-- **Three search modes** — Search by chemical formula, elements, or chemical system
-- **Property filters** — Filter by band gap, energy above hull, atom count, crystal system, and stability
-- **Material detail view** — Full properties, lattice parameters, and symmetry info
-- **Export** — One-click export to POSCAR / CIF / JSON
-- **Internationalization** — Chinese and English UI (configurable via `.env`)
-- **Fast REST API** — Directly calls the Materials Project REST API with `requests`, avoiding compatibility issues with `mp-api`
-
----
+A terminal UI tool for searching materials from the [Materials Project](https://materialsproject.org) database. Built with [Textual](https://textual.textualize.io/).
 
 ## Preview
 
@@ -30,45 +18,51 @@ A terminal-based UI tool for searching materials from the [Materials Project](ht
 
 ---
 
-## Quick Start
+## Features
 
-### 1. Get an API Key
+- **Three search modes** — Search by chemical formula, elements, or chemical system
+- **Property filters** — Filter by band gap, energy above hull, atom count, crystal system, and stability
+- **Material detail view** — Full properties, lattice parameters, and symmetry info
+- **Export** — One-click export to POSCAR / CIF / JSON
+- **Internationalization** — Chinese and English UI (configurable via `.env`)
 
-Sign up at [Materials Project](https://next-gen.materialsproject.org/api) and get your API key.
+---
 
-### 2. Install
+## Installation
+
+### From PyPI (recommended)
+
+```bash
+pip install mp-search
+```
+
+Or with [uv](https://docs.astral.sh/uv/):
+
+```bash
+# Install as a global tool
+uv tool install mp-search
+
+# Or run directly without installing
+uvx mp-search
+```
+
+### From source
 
 ```bash
 git clone https://github.com/sylearn/mp-search.git
 cd mp-search
-
-python -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
-
 pip install -e .
-```
-
-### 3. Configure
-
-```bash
-cp .env.example .env
-```
-
-Edit `.env` and set your API key:
-
-```env
-MP_API_KEY="your_api_key_here"
-```
-
-### 4. Run
-
-```bash
-mp-search
 ```
 
 ---
 
 ## Configuration
+
+Get your API key from [Materials Project](https://next-gen.materialsproject.org/api), then create a `.env` file in the directory where you run `mp-search`:
+
+```bash
+cp .env.example .env
+```
 
 | Variable | Description | Default |
 |---|---|---|
@@ -78,7 +72,13 @@ mp-search
 
 ---
 
-## Keyboard Shortcuts
+## Usage
+
+```bash
+mp-search
+```
+
+### Keyboard Shortcuts
 
 | Key | Action |
 |---|---|
@@ -95,33 +95,17 @@ mp-search
 
 ```
 mp-search/
-├── pyproject.toml          # Package configuration
-├── .env.example            # Environment template
-├── LICENSE
-├── README.md               # English docs
-├── README_zh.md            # Chinese docs
-└── mp_search/              # Python package
-    ├── __main__.py          # CLI entry point
-    ├── config.py            # Configuration loader
-    ├── i18n.py              # Internationalization
-    ├── api/
-    │   └── client.py        # Materials Project REST API client
-    ├── export/
-    │   └── writer.py        # POSCAR / CIF / JSON export
+├── pyproject.toml
+├── .env.example
+└── mp_search/
+    ├── __main__.py      # CLI entry point
+    ├── config.py         # Configuration
+    ├── i18n.py           # Internationalization
+    ├── api/client.py     # REST API client
+    ├── export/writer.py  # POSCAR / CIF / JSON export
     └── tui/
-        ├── app.py           # Main TUI application
-        └── detail.py        # Material detail modal
-```
-
----
-
-## Development
-
-```bash
-pip install -e .
-
-# Changes take effect immediately — just rerun
-mp-search
+        ├── app.py        # Main TUI
+        └── detail.py     # Detail modal
 ```
 
 ---
