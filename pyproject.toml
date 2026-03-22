@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mp-search"
+version = "0.1.0"
+description = "Materials Project 材料搜索 TUI 工具"
+requires-python = ">=3.10"
+dependencies = [
+    "requests",
+    "textual>=0.70.0",
+    "pymatgen",
+    "python-dotenv",
+]
+
+[project.scripts]
+mp-search = "mp_search.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["mp_search*"]
