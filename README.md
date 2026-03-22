@@ -10,6 +10,8 @@ A terminal UI tool for searching materials from the [Materials Project](https://
 
 ## Preview
 
+![Setup Wizard](assets/00_setup.png)
+
 ![Main Interface](assets/01_main.png)
 
 ![Search Results](assets/02_results.png)

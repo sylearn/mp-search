@@ -10,6 +10,8 @@
 
 ## 预览
 
+![设置向导](assets/00_setup.png)
+
 ![主界面](assets/01_main.png)
 
 ![搜索结果](assets/02_results.png)
