@@ -18,6 +18,8 @@ A terminal UI tool for searching materials from the [Materials Project](https://
 
 ![Filters Panel](assets/03_filters.png)
 
+![Material Detail](assets/04_viewinfo.png)
+
 ---
 
 ## Features

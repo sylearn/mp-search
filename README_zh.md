@@ -18,6 +18,8 @@
 
 ![筛选面板](assets/03_filters.png)
 
+![材料详情](assets/04_viewinfo.png)
+
 ---
 
 ## 功能
